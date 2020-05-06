@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="card" *ngIf='product'>
+        <div class="card-header">
+            <button class="btn btn-outline-secondary" (click)="getBack()">
+                <i class="fa fa-chevron-left"></i> Back
+            </button>
+            {{ pageTitle + ': ' + product.productName}}
+        </div>
+    </div>
+</div>

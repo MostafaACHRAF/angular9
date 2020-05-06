@@ -1,0 +1,54 @@
+<div class="card">
+    <div class="card-header">{{title}}</div>
+    <div class="card-body">
+        <div class="row">
+            <div col-md-2>Filter by: </div>
+            <div col-md-4>
+                <input type="text" [(ngModel)]='filterBy' />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">Filtred by: {{filterBy}}</div>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table class="table" *ngIf='products && products.length'>
+            <thead>
+                <tr>
+                    <th>
+                        <button class="btn btn-primary" (click)='toggleImages()'>
+                            {{showImages ? 'Hide' : 'Show'}} images
+                        </button>
+                    </th>
+                    <th>Product</th>
+                    <th>Code</th>
+                    <th>Available</th>
+                    <th>Price</th>
+                    <th>star rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor='let product of filtredProducts'>
+                    <td *ngIf='showImages'>
+                        <img [src]='product.image.url'
+                        [style.width.px]='product.image.width'/>
+                    </td>
+                    <td *ngIf='!showImages'>
+                        <img src="#" title="" />
+                    </td>
+                    <td>
+                        <a [routerLink]="['/products', product.productId]">
+                            {{ product.productName }}
+                        </a>
+                    </td>
+                    <td>{{ product.productCode | lowercase | toSpace:'-' }}</td>
+                    <td>{{ product.releaseDate }}</td>
+                    <td>{{ product.price | currency:'EUR':'symbol':'1.2-2'}}</td>
+                    <td>
+                        <rating-stars [rating]='product.rating' (notify)='onNotify($event)'></rating-stars>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
